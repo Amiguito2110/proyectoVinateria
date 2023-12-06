@@ -1,0 +1,1019 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0.5",
+        "title": "REST API VINATERIA",
+        "description": "<html><body>Documentacion del proyecto de la <b>VINATERIA</b></body></html>",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "",
+    "tags": [
+        {
+            "name": "Usuarios",
+            "description": "API para obtener información de los usuarios de la Vinateria"
+        },
+        {
+            "name": "Botellas",
+            "description": "API para obtener información de las botellasde la Vinateria"
+        },
+        {
+            "name": "Roles",
+            "description": "API para obtener información de los roles de la Vinateria"
+        },
+        {
+            "name": "Tipos",
+            "description": "API para obtener información de los tipos de botellas de la Vinateria"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/usuarios/mostrarTodosUsuarios/": {
+            "get": {
+                "tags": ["Usuarios"],
+                "summary": "Listado de todos los usuarios que existen en la Vinateria.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los usuarios que existen en la Vinateria.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los usuarios existentes en la Vinateria?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 2,
+                                    "nombre": "Juan José López Guevara",
+                                    "usuario": "Wawavara",
+                                    "contrasena": "1234",
+                                    "correo": "sise@gmail.com",
+                                    "id_Rol": 1
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Usuarios"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/Usuarios/crearUsuario": {
+            "post": {
+                "summary": "Creando un usuario",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Usuario",
+                        "in": "body",
+                        "description": "Usuario agregado",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoUsuario"
+                        }
+                    }
+                ],
+                "tags": ["Usuarios"],
+                "responses": {
+                    "200": {
+                        "description": "Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/usuarios/obtenerUsuario/{id}": {
+            "get": {
+                "tags": ["Usuarios"],
+                "summary": "Informacion asociada al usuario, si es que existe en la Vinateria",
+                "description": "<p>Servicio que devuelve la información detallada del usuarios soliciado</p><p>&nbsp;</p><p><em><strong>¿Cuál es del usuario de este id?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 4,
+                                    "nombre": "Angel Cruz",
+                                    "correo": "Angel@gmail.com",
+                                    "id_Rol": 4,
+                                    "contrasena": "789*"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Usuario"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del usuario",
+                        "type": "number",
+                        "default": "4"
+                    }
+                ]
+            }
+        },
+        "/api/usuarios/actualizarUsuario/{id}": {
+            "put": {
+                "summary": "Actualizar la informaciòn del usuario de la Vinateria",
+                "description": "<p>Servicio que permite editar la informaciòn del usuario de VINATERIA, dado el id el mismo </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del usuario",
+                        "type": "number",
+                        "default": "4"
+                    },
+                    {
+                        "name": "Usuario",
+                        "in": "body",
+                        "description": "Nombre del usuario",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoUsuario"
+                        }
+                    }
+                ],
+                "tags": ["Usuarios"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/usuarios/eliminarUsuario/{id}": {
+            "delete": {
+                "tags": ["Usuarios"],
+                "summary": "Eliminar el usuario de la Vinateria dado su identificador",
+                "description": "<p>Servicio que elimina el usuario dado el identificador enviado</p><p>&nbsp;</p><p><em><strong>¿Fué una ejecución exitoso?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del usuario",
+                        "type": "number",
+                        "default": "8"
+                    }
+                ]
+            }
+        },
+        "/api/botellas/MostrarTodasBotellas/": {
+            "get": {
+                "tags": ["Botellas"],
+                "summary": "Listado de todas las plantas que existen en la Vinateria",
+                "description": "<p>Servicio que devuelve la información detallada de todas las botellas que existen en la Vinateria.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son las botellas que hay en la Vinateria?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_botella": 1,
+                                    "precio": 30,
+                                    "nombre": "tequila caribeño",
+                                    "id_contenido": 2,
+                                    "id_tipo": 4,
+                                    "imagen": "ruta/imagen.png"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Botellas"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/botellas/agregarBotella": {
+            "post": {
+                "summary": "Agregando una Botella",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Botella",
+                        "in": "body",
+                        "description": "Botella agregada",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevaBotella"
+                        }
+                    }
+                ],
+                "tags": ["Botellas"],
+                "responses": {
+                    "200": {
+                        "description": "Insertada con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/botellas/obtenerBotella/{id}": {
+            "get": {
+                "tags": ["Botellas"],
+                "summary": "Informacion asociada a la botella si existe en la Vinateria",
+                "description": "<p>Servicio que devuelve la información detallada de la botella soliciada</p><p>&nbsp;</p><p><em><strong>¿Cuál es la botella de este id?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_botella": 1,
+                                    "precio": 30,
+                                    "nombre": "tequila caribeño",
+                                    "id_contenido": 2,
+                                    "id_tipo": 4,
+                                    "imagen": "ruta/imagen.png"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Botella"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador de la botella",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/botellas/actualizarBotella/{id}": {
+            "put": {
+                "summary": "Actualizar la informaciòn de la botella de la Vinateria",
+                "description": "<p>Servicio que permite editar la informaciòn de la botella de la Vinateria, dado el id del mismo </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador de la botella",
+                        "type": "number",
+                        "default": "4"
+                    },
+                    {
+                        "name": "Botella",
+                        "in": "body",
+                        "description": "Nombre de la botella",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevaBotella"
+                        }
+                    }
+                ],
+                "tags": ["Botellas"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/botellas/eliminarBotella/{id}": {
+            "delete": {
+                "tags": ["Botellas"],
+                "summary": "Eliminar botella de la Vinateria dado su identificador",
+                "description": "<p>Servicio que elimina una botella dado el identificador enviado</p><p>&nbsp;</p><p><em><strong>¿Fué una ejecución exitosa?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador de la botella",
+                        "type": "number",
+                        "default": "8"
+                    }
+                ]
+            }
+        },
+        "/api/roles/MostrarTodosRoles/": {
+            "get": {
+                "tags": ["Roles"],
+                "summary": "Listado de todos los roles que existen en la Vinateria.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los roles que existen en la Vinateria.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los roles existentes en la Vinateria?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_rol": 1,
+                                    "nombre_rol": "Administrador"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Roles"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/roles/crearRol": {
+            "post": {
+                "summary": "Creando Rol",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Rol",
+                        "in": "body",
+                        "description": "Rol agregado",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoRol"
+                        }
+                    }
+                ],
+                "tags": ["Roles"],
+                "responses": {
+                    "200": {
+                        "description": "Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/roles/obtenerRol/{id}": {
+            "get": {
+                "tags": ["Roles"],
+                "summary": "Informacion asociada al rol si existe en la Vinateria",
+                "description": "<p>Servicio que devuelve la información detallada del rol soliciado</p><p>&nbsp;</p><p><em><strong>¿Cuál es el rol de este id?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_rol": 1,
+                                    "nombre_rol": "Administrador"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Rol"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del rol",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/roles/actualizarRol/{id}": {
+            "put": {
+                "summary": "Actualizar la informaciòn del rol de la Vinateria",
+                "description": "<p>Servicio que permite editar la informaciòn del rol de VINATERIA, dado el id el mismo </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del rol",
+                        "type": "number",
+                        "default": "4"
+                    },
+                    {
+                        "name": "Rol",
+                        "in": "body",
+                        "description": "Nombre del rol",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoRol"
+                        }
+                    }
+                ],
+                "tags": ["Roles"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/roles/eliminarRol/{id}": {
+            "delete": {
+                "tags": ["Roles"],
+                "summary": "Eliminar rol de la Vinateria dado su identificador",
+                "description": "<p>Servicio que elimina un rol dado el identificador enviado</p><p>&nbsp;</p><p><em><strong>¿Fué una ejecución exitosa?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del rol",
+                        "type": "number",
+                        "default": "4"
+                    }
+                ]
+            }
+        },
+        "/api/tipo/mostrarTodosTipos/": {
+            "get": {
+                "tags": ["Tipos"],
+                "summary": "Listado de todos los cantidades de contenido que existen en la Vinateria.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los tipos que existen en la Vinateria.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los cantidades de contenido que hay en la Vinateria?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_tipo": 2,
+                                    "nombre_tipo": "flor"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Tipos"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/tipo/crearTipo": {
+            "post": {
+                "summary": "Creando Tipo",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Tipo",
+                        "in": "body",
+                        "description": "Tipo agregado",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoTipo"
+                        }
+                    }
+                ],
+                "tags": ["Tipos"],
+                "responses": {
+                    "200": {
+                        "description": "Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/tipo/obtenerTipo/{id}": {
+            "get": {
+                "tags": ["Tipos"],
+                "summary": "Informacion asociada al contenido de la botella si existe en la Vinateria",
+                "description": "<p>Servicio que devuelve la información detallada del contenido de la botella soliciado</p><p>&nbsp;</p><p><em><strong>¿Cuál es el contenido de la botella de este id?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_tipo": 2,
+                                    "nombre_tipo": "flor"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Tipo"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del tipo",
+                        "type": "number",
+                        "default": "3"
+                    }
+                ]
+            }
+        },
+        "/api/tipo/actualizarTipo/{id}": {
+            "put": {
+                "summary": "Actualizar la informaciòn del contenido de la botella de la Vinateria",
+                "description": "<p>Servicio que permite editar la informaciòn del contenido de la botella de la Vinateria, dado el id el mismo </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del contenido de la botella",
+                        "type": "number",
+                        "default": "4"
+                    },
+                    {
+                        "name": "Tipo",
+                        "in": "body",
+                        "description": "Nombre del contenido de la botella",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoTipo"
+                        }
+                    }
+                ],
+                "tags": ["Tipos"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/tipo/eliminarTipo/{id}": {
+            "delete": {
+                "tags": ["Tipos"],
+                "summary": "Eliminar contenido de la botella de la Vinateria dado su identificador",
+                "description": "<p>Servicio que elimina un contenido de la botella dado el identificador enviado</p><p>&nbsp;</p><p><em><strong>¿Fué una ejecución exitosa?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del tipo",
+                        "type": "number",
+                        "default": "6"
+                    }
+                ]
+            }
+        },
+        "/api/Contenidos/mostrarTodosContenidos/": {
+            "get": {
+                "tags": ["Contenidos"],
+                "summary": "Listado de todos los cantidades de contenido que existen en la Vinateria.",
+                "description": "<p>Servicio que devuelve la información detallada de todoslas cantidades de contenido que existen en la Vinateria.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los cantidades de contenido que hay en la Vinateria?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_tipo": 2,
+                                    "contenido": "2L"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Contenidos"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/contenidos/crearContenido": {
+            "post": {
+                "summary": "Agregando nueva cantidad de Contenido",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Contenido",
+                        "in": "body",
+                        "description": "Contenido agregado",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoContenido"
+                        }
+                    }
+                ],
+                "tags": ["Contenidos"],
+                "responses": {
+                    "200": {
+                        "description": "Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/contenidos/obtenerContenido/{id}": {
+            "get": {
+                "tags": ["Contenidos"],
+                "summary": "Informacion asociada al contenido de la botella si existe en la Vinateria",
+                "description": "<p>Servicio que devuelve la información detallada del contenido de la botella soliciado</p><p>&nbsp;</p><p><em><strong>¿Cuál es el contenido de la botella de este id?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_tipo": 2,
+                                    "contenido": "3L"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Contenido"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del contenido",
+                        "type": "number",
+                        "default": "3"
+                    }
+                ]
+            }
+        },
+        "/api/contenidos/actualizarContenido/{id}": {
+            "put": {
+                "summary": "Actualizar la informaciòn del contenido de la botella de la Vinateria",
+                "description": "<p>Servicio que permite editar la informaciòn del contenido de la botella de la Vinateria, dado el id el mismo </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del contenido de la botella",
+                        "type": "number",
+                        "default": "4"
+                    },
+                    {
+                        "name": "Tipo",
+                        "in": "body",
+                        "description": "Nombre del contenido de la botella",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoContenido"
+                        }
+                    }
+                ],
+                "tags": ["Contenidos"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/contenidos/eliminarContenido/{id}": {
+            "delete": {
+                "tags": ["Contenidos"],
+                "summary": "Eliminar contenido de la botella de la Vinateria dado su identificador",
+                "description": "<p>Servicio que elimina un contenido de la botella dado el identificador enviado</p><p>&nbsp;</p><p><em><strong>¿Fué una ejecución exitosa?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del contenido de la botella",
+                        "type": "number",
+                        "default": "6"
+                    }
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "Usuario": {
+            "type": "object",
+            "properties": {
+                "id_usuario": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar al usuario"
+                },
+                "nombre": {
+                    "type": "string",
+                    "description": "Nombre del usuario"
+                },
+                "usuario": {
+                    "type": "string",
+                    "description": "Nickname del usuario"
+                },
+                "contrasena": {
+                    "type": "string",
+                    "description": "Contrasena del usuario"
+                },
+                "correo": {
+                    "type": "string",
+                    "description": "Correo del usuario"
+                },
+                "id_Rol": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar el rol del usuario"
+                }
+            }
+        },
+        "Usuarios": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Usuario"
+            }
+        },
+        "NuevoUsuario": {
+            "type": "object",
+            "properties": {
+                "nombre": {
+                    "type": "string",
+                    "description": "Nombre del usuario"
+                },
+                "usuario": {
+                    "type": "string",
+                    "description": "Nickname del usuario"
+                },
+                "contrasena": {
+                    "type": "string",
+                    "description": "Contrasena del usuario"
+                },
+                "correo": {
+                    "type": "string",
+                    "description": "Correo del usuario"
+                },
+                "id_Rol": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar el rol del usuario"
+                }
+            }
+        },
+        "Botella": {
+            "type": "object",
+            "properties": {
+                "id_botella": {
+                    "type": "number",
+                    "description": "Id de la Botella"
+                },
+                "precio": {
+                    "type": "number",
+                    "description": "Precio de la botella"
+                },
+                "nombre": {
+                    "type": "string",
+                    "description": "Nombre de la botella"
+                },
+                "id_contenido": {
+                    "type": "number",
+                    "description": "Id del tipo de la botella"
+                },
+                "id_tipo": {
+                    "type": "number",
+                    "description": "Id del contenido de la botella"
+                },
+                "imagen": {
+                    "type": "string",
+                    "description": "direccion de la imagen"
+                }
+            }
+        },
+        "Botellas": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Botella"
+            }
+        },
+        "NuevaBotella": {
+            "type": "object",
+            "properties": {
+                "precio": {
+                    "type": "number",
+                    "description": "Precio de la botella"
+                },
+                "nombre": {
+                    "type": "string",
+                    "description": "Nombre de la botella"
+                },
+                "id_contenido": {
+                    "type": "number",
+                    "description": "Id del tipo de la botella"
+                },
+                "id_tipo": {
+                    "type": "number",
+                    "description": "Id del contenido de la botella"
+                },
+                "imagen": {
+                    "type": "string",
+                    "description": "direccion de la imagen"
+                }
+            }
+        },
+        "Rol": {
+            "type": "object",
+            "properties": {
+                "id_rol": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar al rol"
+                },
+                "nombre_rol": {
+                    "type": "string",
+                    "description": "Nombre del rol"
+                }
+            }
+        },
+        "Roles": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Rol"
+            }
+        },
+        "NuevoRol": {
+            "type": "object",
+            "properties": {
+                "nombre_rol": {
+                    "type": "string",
+                    "description": "Nombre del rol"
+                }
+            }
+        },
+        "Tipo": {
+            "type": "object",
+            "properties": {
+                "id_tipo": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar al tipo"
+                },
+                "nombre_tipo": {
+                    "type": "string",
+                    "description": "Nombre del tipo"
+                }
+            }
+        },
+        "Tipos": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Tipo"
+            }
+        },
+        "NuevoTipo": {
+            "type": "object",
+            "properties": {
+                "nombre_tipo": {
+                    "type": "string",
+                    "description": "Nombre del tipo"
+                }
+            }
+        },
+        "Contenido": {
+            "type": "object",
+            "properties": {
+                "id_contenido": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar al contenido de la botella"
+                },
+                "cantidad": {
+                    "type": "string",
+                    "description": "Cantidad de Contenido de la botella"
+                }
+            }
+        },
+        "Contenidos": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Contenido"
+            }
+        },
+        "NuevoContenido": {
+            "type": "object",
+            "properties": {
+                "cantidad": {
+                    "type": "string",
+                    "description": "Cantidad de Contenido de la botella"
+                }
+            }
+        }
+    }
+}
